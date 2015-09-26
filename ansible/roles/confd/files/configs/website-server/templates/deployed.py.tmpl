@@ -8,17 +8,9 @@ from .base import *
 
 # Import environment specific values
 if '{{getv "/sitterfied/website/environment"}}' == 'test':
-    from .test.facebook import *
-    from .test.google import *
-    from .test.hellobar import *
-    from .test.intercom import *
-    from .test.knowtify import *
-    from .test.mandrill import *
-    from .test.segment import *
-    from .test.twilio import *
-    from .test.uploadcare import *
+    from .staging import *
 else:
-    from .production.facebook import *
+    from .production import *
     from .production.google import *
     from .production.hellobar import *
     from .production.intercom import *

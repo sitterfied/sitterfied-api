@@ -52,11 +52,11 @@ deploy:
           USER_DATA_OPTION="--user-data=$USER_DATA";
           fi;
           DEPLOY_ARGS_OPTION="${DEPLOY_ARGS-}";
-          deployment/deploy-image --container=website --project=website-server --region=$AWS_REGION --environment=$ENVIRONMENT --iam website-server $DEPLOY_ARGS_OPTION $USER_DATA_OPTION;
+          scripts/deploy/deploy-image --container=website --project=website-server --region=$AWS_REGION --environment=$ENVIRONMENT --iam website-server $DEPLOY_ARGS_OPTION $USER_DATA_OPTION;
     - script:
         name: prune previous builds
         code: |
-          deployment/cleanup-ec2 --region $AWS_REGION --container website --project website-server --environment $ENVIRONMENT --keep 3
+          scripts/deploy/cleanup-ec2 --region $AWS_REGION --container website --project website-server --environment $ENVIRONMENT --keep 3
   after-steps:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL
