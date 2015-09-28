@@ -1,7 +1,7 @@
 {% if env == "deployed" %}
 start on virtual-filesystems
 {% else %}
-start on mounted MOUNTPOINT=/opt/sitterfied
+start on mounted MOUNTPOINT=/opt/sitterfied-api
 {% endif %}
 stop on runlevel [06]
 
@@ -14,4 +14,6 @@ env DJANGO_SETTINGS_MODULE=sitterfied.settings.{{ env }}
 env PYTHONDONTWRITEBYTECODE=1
 {% endif %}
 
-exec {{ application_virtualenv_bin }}/uwsgi /etc/uwsgi.d/sitterfied.ini
+exec {{ application_virtualenv_bin }}/uwsgi /etc/uwsgi.d/sitterfied-api.ini
+
+

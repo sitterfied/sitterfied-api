@@ -42,46 +42,14 @@ USE_TZ = True
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
 
-
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = '/www/static'
 
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    PROJECT_ROOT.child("static_source"),  # An absolute path: /foo/bar/baz.py
-)
-
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = "&)y$vgj8lzxlexal31dcd(^ua(0yf95)f^b@$=*to5s)*eznxq"
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
-                               "django.core.context_processors.debug",
-                               "django.core.context_processors.request",
-                               "django.core.context_processors.i18n",
-                               "django.core.context_processors.media",
-                               "django.core.context_processors.static",
-                               "django.core.context_processors.tz",
-                               "django.contrib.messages.context_processors.messages")
 
 MIDDLEWARE_CLASSES = (
     'corsheaders.middleware.CorsMiddleware',
@@ -97,13 +65,6 @@ ROOT_URLCONF = 'sitterfied.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'sitterfied.wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    PROJECT_ROOT.child('templates'),
-)
 
 INSTALLED_APPS = (
     # django apps
@@ -124,9 +85,9 @@ INSTALLED_APPS = (
     'favicon',
     'floppyforms',
     'model_utils',
-    'pipeline',
+#    'pipeline',
     'pyuploadcare.dj',
-    'registration',
+#    'registration',
     'rest_framework',
     'rest_framework.authtoken',
     # sitterfied apps
@@ -190,7 +151,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'verbose',
-            'filename': '/var/log/sitterfied/django.log',
+            'filename': '/var/log/sitterfiedapi/django.log',
             'maxBytes': 1024 * 1024 * 25,  # 25 MB
             'backupCount': 5,
         },
@@ -198,7 +159,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'verbose',
-            'filename': '/var/log/sitterfied/application.log',
+            'filename': '/var/log/sitterfiedapi/application.log',
             'maxBytes': 1024 * 1024 * 25,  # 25 MB
             'backupCount': 5,
         },

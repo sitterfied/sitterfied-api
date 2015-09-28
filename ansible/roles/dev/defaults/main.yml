@@ -3,8 +3,8 @@
 application_user: vagrant
 
 # application paths
-application_root: /opt/sitterfied
+application_root: /opt/sitterfied-api
 
 # virtualenv paths
-application_virtualenv_root: /opt/envs/sitterfied
-application_virtualenv_bin: /opt/envs/sitterfied/bin
+application_virtualenv_root: /opt/envs/sitterfied-api
+application_virtualenv_bin: /opt/envs/sitterfied-api/bin

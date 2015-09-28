@@ -1,9 +1,5 @@
 ---
 
-- name: install the Ember Precompile library
-  sudo: true
-  shell: npm -g install ember-precompile@0.2.2
-
 - name: install dependency packages
   sudo: true
   apt: name={{ item }}
@@ -28,7 +24,7 @@
 - name: create a log directory
   sudo: true
   file:
-    path=/var/log/sitterfied/
+    path=/var/log/sitterfiedapi/
     state=directory
     group={{ application_user }}
     owner={{ application_user }}
@@ -68,4 +64,13 @@
     dest="{{ application_user_home }}/.bashrc"
     owner={{ application_user }}
     group={{ application_user }}
+    mode=644
+
+- name: Copy the robots.txt file to the static dir
+  sudo: True
+  copy:
+    src=robots.txt
+    dest=/www/robots.txt
+    owner=root
+    group=root
     mode=644

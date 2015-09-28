@@ -10,7 +10,7 @@
   tasks:
     - include: roles/confd/tasks/configs.yml confd_profile=website-server
   vars:
-    application_server_name: test.sitterfied.com
+    application_server_name: stage-api.sitterfied.com
     application_user: ubuntu
     celeryd_state: stopped
     env: deployed

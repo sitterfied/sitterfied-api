@@ -29,7 +29,7 @@
     owner: "{{ application_user }}"
     mode: 0755
 
-- name: clone the sitterfied git repository
+- name: clone the sitterfied-api git repository
   sudo: true
   git: 
     repo: "{{ git_repo }}"
@@ -48,8 +48,5 @@
     recurse: yes
 
 - include: requirements.yml
-
-- name: compile js templates
-  shell: "{{ application_root }}/build/build.sh"
 
 - include: django-admin.yml

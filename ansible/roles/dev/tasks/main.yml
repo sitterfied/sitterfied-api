@@ -31,16 +31,6 @@
 - name: run database migrations
   command: django-admin.py migrate --noinput
 
-- name: create the django superuser admin account
-  command: django-admin.py loaddata dev-data
-
-- name: install npm packages
-  sudo: true
-  npm:
-    name=ember-precompile
-    version=0.2.2
-    global=yes
-
 - name: copy the ngrok configuration file
   copy: 
     src=ngrok

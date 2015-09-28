@@ -3,7 +3,6 @@
 - hosts: all
   roles:
     - common
-    - nodejs
     - application
     - uwsgi
 
@@ -24,3 +23,4 @@
       - 0.0.0.0 # local
     ngrok_tunnels: "web"
     with_redmon: false
+

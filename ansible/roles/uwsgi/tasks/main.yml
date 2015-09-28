@@ -12,8 +12,8 @@
 - name: create the uwsgi config
   sudo: True
   template:
-    src=sitterfied.ini.j2
-    dest=/etc/uwsgi.d/sitterfied.ini
+    src=sitterfied-api.ini.j2
+    dest=/etc/uwsgi.d/sitterfied-api.ini
     owner=root
     group=root
     mode=644

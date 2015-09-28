@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
-
 FACEBOOK_APP_ID = '141907389308388'
 
 GOOGLE_OAUTH_CLIENT_ID = '305141264963-9av2onc3pdada6mtkat6uorhv99k5nhu.apps.googleusercontent.com'

@@ -5,11 +5,11 @@ application_user: vagrant
 application_user_home: /home/{{ application_user }}
 
 # the name of the server for nginx
-application_server_name: dev.sitterfied.com
+application_server_name: dev-api.sitterfied.com
 
 # important application paths
-application_root: /opt/sitterfied
+application_root: /opt/sitterfied-api
 
 # virtualenv paths
-application_virtualenv_root: /opt/envs/sitterfied
-application_virtualenv_bin: /opt/envs/sitterfied/bin
+application_virtualenv_root: /opt/envs/sitterfied-api
+application_virtualenv_bin: /opt/envs/sitterfied-api/bin
