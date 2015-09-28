@@ -1,9 +1,17 @@
 # -*- coding: utf-8 -*-
 import logging
+import random
+import string
 
 from django.test.runner import DiscoverRunner
 from rest_framework import renderers
-from urllib.parse import urlencode
+from urllib import urlencode
+
+from sitterfied.test.autofixtures import *
+
+
+def random_string(length):
+    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
 
 
 class APITestRunner(DiscoverRunner):

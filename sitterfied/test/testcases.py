@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import autofixture
 import random
-import string
 
 from contextlib import contextmanager
 from hamcrest import assert_that, is_, none, not_none, only_contains
@@ -10,12 +9,9 @@ from rest_framework.test import APITestCase
 
 from sitterfied.parents.models import Parent
 from sitterfied.sitters.models import Sitter
+from sitterfied.test import random_string
 from sitterfied.test.autofixtures import *
 from sitterfied.users.models import User
-
-
-def random_string(length):
-    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
 
 
 class SitterfiedApiTestCase(APITestCase):
@@ -27,6 +23,7 @@ class SitterfiedApiTestCase(APITestCase):
 
         To be used as a context manager, yields the created or retrieved
         profile. Extra kwargs will be passed to the profile constructor.
+
         """
         email = email or random_string(10) + '@test.sitterfied.com'
 

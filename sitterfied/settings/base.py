@@ -253,8 +253,8 @@ ALLOWED_HOSTS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'sitterfied.app.authentication.EmailAuthBackend',
-    'sitterfied.app.authentication.FacebookAuthBackend',
+    'sitterfied.auth.backends.EmailAuthBackend',
+    'sitterfied.auth.backends.FacebookAuthBackend',
 )
 
 # Base URL for shortened URLs

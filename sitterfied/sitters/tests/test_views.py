@@ -7,7 +7,8 @@ from rest_framework import reverse, status
 
 from sitterfied.sitters.models import Sitter
 from sitterfied.sitters.serializers import SitterSerializer
-from sitterfied.test.testcases import random_string, SitterfiedApiTestCase, ViewSetTestCaseMixin
+from sitterfied.test import random_string
+from sitterfied.test.testcases import SitterfiedApiTestCase, ViewSetTestCaseMixin
 
 
 class TestViews(ViewSetTestCaseMixin, SitterfiedApiTestCase):

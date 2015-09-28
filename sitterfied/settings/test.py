@@ -29,7 +29,7 @@ REST_FRAMEWORK.update({
     'TEST_REQUEST_RENDERER_CLASSES': (
         'rest_framework.renderers.MultiPartRenderer',
         'rest_framework.renderers.JSONRenderer',
-        'beatportapi.settings.test.FormRenderer',
+        'sitterfied.test.FormRenderer',
     ),
 })
 
@@ -38,5 +38,3 @@ CELERY_ALWAYS_EAGER = True
 DISABLE_SHORT_URL = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
-
-from sitterfied.test.autofixtures import *

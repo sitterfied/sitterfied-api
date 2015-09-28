@@ -6,22 +6,18 @@ import requests
 from annoying.decorators import render_to, ajax_request
 from datetime import datetime, time
 from django.conf import settings
-from django.contrib.auth import login as auth_login, authenticate
+from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q, Count
 from django.forms.models import inlineformset_factory
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import redirect
-from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_POST
 from ecl_facebook import Facebook
 from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-from signup import RegistrationView
 
 from sitterfied.app import utils
 from sitterfied.app.forms import SitterRegisterForm, ParentRegisterForm, ChildForm, GroupsForm, RequiredFormSet
@@ -285,20 +281,20 @@ def search(request):
                                                                'settings').annotate(rehires=Count("bookings__parent"))
 
     if not settings.DEBUG:
-        #filter by radius
+        # filter by radius
         response = requests.get("https://redline-redline-zipcode.p.mashape.com/rest/radius.json/%s/50/mile" % zipcode,
                                 headers={
                                     "X-Mashape-Authorization": "kCS3vjTPWYHa7JKYwD3LY6bIcxpmgp5r"
                                 })
         zipcodes = response.json()['zip_codes']
 
-        #zipcodes = test_zips
+        # zipcodes = test_zips
         q_list = [Q(zip=z['zip_code'], travel_distance__gte=z['distance']) for z in zipcodes]
         reduced_q = reduce(operator.or_, q_list)
 
         sitters = sitters.filter(reduced_q)
 
-    #figure out which day we care about
+    # figure out which day we care about
     start_date = datetime.strptime(start_date, "%a, %b %d %Y")
     day = datetime.strftime(start_date, "%a").lower()
 
@@ -329,7 +325,7 @@ def search(request):
             if start_time <= search_time <= stop_time:
                 search_terms[("schedule__%s_" % day) + term] = True
 
-    #filter by availiablity
+    # filter by availiablity
     sitters = sitters.filter(**search_terms)
 
     serializer = SitterSearchSerializer(sitters, many=True, context={'request': request})
@@ -347,7 +343,12 @@ def network_search(request):
         "id": u.id
     } for u in User.objects.filter(Q(first_name__istartswith=search_term) | Q(last_name__istartswith=search_term))]
 
-    groups = [{'label': g.name, 'value': g.name, "type": "group", "id": g.id} for g in Group.objects.filter(Q(name__istartswith=search_term))]
+    groups = [{
+        'label': g.name,
+        'value': g.name,
+        "type": "group",
+        "id": g.id
+    } for g in Group.objects.filter(Q(name__istartswith=search_term))]
     users.extend(groups)
     return Response(users)
 
@@ -360,84 +361,6 @@ def group_search(request):
                "type": "group",
                "id": g.id} for g in Group.objects.filter(Q(name__istartswith=search_term))]
     return Response(groups)
-
-
-def error(request):
-    """for testing purposes"""
-    raise Exception
-
-
-@sensitive_post_parameters()
-@csrf_protect
-@never_cache
-@require_POST
-@ajax_request
-def login_ajax(request,
-               authentication_form=AuthenticationForm,
-               current_app=None, extra_context=None):
-    """
-    Displays the login form and handles the login action.
-    """
-    form = authentication_form(data=request.POST)
-    if form.is_valid():
-        if not request.POST.get('remember_me', None):
-            request.session.set_expiry(0)
-
-        auth_login(request, form.get_user())
-
-        if request.session.test_cookie_worked():
-            request.session.delete_test_cookie()
-    else:
-        return HttpResponseUnauthorized()
-    user_json = get_user_json(request)
-    return {"user": user_json}
-
-
-@sensitive_post_parameters()
-@csrf_protect
-@never_cache
-@require_POST
-@ajax_request
-def login_facebook(request):
-    """
-    Displays the login form and handles the login action.
-    """
-    facebook_id = request.POST['id']
-
-    user = authenticate(id=facebook_id)
-    if not user:
-        request.session["FACEBOOK_ID"] = facebook_id
-        request.session["FACEBOOK_TOKEN"] = request.POST['token']
-
-        return HttpResponseUnauthorized()
-
-    auth_login(request, user)
-    if request.session.test_cookie_worked():
-        request.session.delete_test_cookie()
-
-    return {}
-
-
-class AjaxRegistrationView(RegistrationView):
-    def register(self, request, **cleaned_data):
-        new_user = super(AjaxRegistrationView, self).register(request, **cleaned_data)
-        new_user.zip = cleaned_data['zipcode']
-        new_user.first_name = cleaned_data['first_name']
-        new_user.last_name = cleaned_data['last_name']
-        new_user.save()
-        return new_user
-
-    def form_valid(self, request, form):
-        self.register(request, **form.cleaned_data)
-
-        user_json = get_user_json(request)
-        response = {"user": user_json}
-        json_response = JsonResponse(response)
-        json_response['content-length'] = len(json_response.content)
-        return json_response
-
-    def form_invalid(self, form):
-        return HttpResponseUnauthorized()
 
 
 def facebook_import_logic(user, token, fb_id):
@@ -486,7 +409,3 @@ def add_group(request):
     group, created = Group.objects.get_or_create(name=group_name)
     request.user.sitter_groups.add(group)
     return {"id": group.id, "name": group.name}
-
-
-def cloudhealthcheck(request):
-    return HttpResponse()

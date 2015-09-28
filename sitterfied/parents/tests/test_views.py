@@ -8,7 +8,8 @@ from rest_framework.reverse import reverse
 
 from sitterfied.parents.models import Parent
 from sitterfied.parents.serializers import ParentSerializer
-from sitterfied.test.testcases import random_string, SitterfiedApiTestCase, ViewSetTestCaseMixin
+from sitterfied.test import random_string
+from sitterfied.test.testcases import SitterfiedApiTestCase, ViewSetTestCaseMixin
 
 
 class TestViews(ViewSetTestCaseMixin, SitterfiedApiTestCase):

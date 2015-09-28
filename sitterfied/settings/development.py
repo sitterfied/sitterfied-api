@@ -3,15 +3,6 @@ from celery.schedules import crontab
 from kombu import Exchange, Queue
 
 from .base import *
-from .test.facebook import *
-from .test.google import *
-from .test.hellobar import *
-from .test.intercom import *
-from .test.knowtify import *
-from .test.mandrill import *
-from .test.segment import *
-from .test.twilio import *
-from .test.uploadcare import *
 
 DEBUG = TEMPLATE_DEBUG = True
 
@@ -90,21 +81,29 @@ JOB_FIRST_REMINDER = 60
 JOB_RELIEF_REMINDER = 180
 JOB_SECOND_REMINDER = 120
 
-# Whether the Query Inspector should do anything (default: False)
-QUERY_INSPECT_ENABLED = True
-# Whether to log the stats via Django logging (default: True)
-QUERY_INSPECT_LOG_STATS = True
-# Whether to add stats headers (default: True)
-QUERY_INSPECT_HEADER_STATS = True
-# Whether to log duplicate queries (default: False)
-QUERY_INSPECT_LOG_QUERIES = True
-# Whether to log queries that are above an absolute limit (default: None - disabled)
-QUERY_INSPECT_ABSOLUTE_LIMIT = 100  # in milliseconds
-# Whether to log queries that are more than X standard deviations above the mean query time (default: None - disabled)
-QUERY_INSPECT_STANDARD_DEVIATION_LIMIT = 2
-# Whether to include tracebacks in the logs (default: False)
-QUERY_INSPECT_LOG_TRACEBACKS = True
-# Project root (one or several colon-separated directories, default empty)
-QUERY_INSPECT_TRACEBACK_ROOTS = ['./']
+FACEBOOK_APP_ID = '624946094225118'
 
-TWILIO_DEFAULT_CALLERID = '+18622067249'
+GOOGLE_OAUTH_CLIENT_ID = '305141264963-9gamu3g0ja74ch7pcssmmk75shtk9ftc.apps.googleusercontent.com'
+GOOGLE_OAUTH_CLIENT_SECRET = 'LSeO2JmrERhe_vRNUFnVsfuc'
+GOOGLE_OAUTH_REDIRECT_URI = 'https://test.sitterfied.com'
+
+HELLOBAR_APP_ID = 'e12e8fdf8d04502e0b6c4b41379e97f917b64d65'
+
+INTERCOM_APP_ID = 'a9ac72f2db462866c33f72e70463f02f08423b4a'
+INTERCOM_API_SECRET = 'nBuKwWJXM-BdRNebRRFzMTEwUq9Me4XwHjeuZjpx'
+
+KNOWTIFY_API_TOKEN = '4a866b43f5f0f148d62fb8fcdf668d6f'
+
+MANDRILL_API_KEY = 'eSmAHcO6VEK6DaZPoj12xA'
+
+SEGMENT_API_KEY = 'NMTOJEsFZj98UT5vWkJ9HET5bhE2Z04N'
+
+TWILIO_ACCOUNT_SID = "AC08f154853d531705433b3ad705bff51a"
+TWILIO_AUTH_TOKEN = "70edab4584f7dba5b65af0061d999b88"
+TWILIO_DEFAULT_CALLERID = "+19088384816"
+
+UPLOADCARE = {
+    'pub_key': '2ca29096885dea0df2a4',
+    'secret': '9ccdafc98ed97c35380d',
+    'upload_base_url': 'https://ucarecdn.com/',
+}

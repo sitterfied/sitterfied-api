@@ -11,14 +11,6 @@ if '{{getv "/sitterfied/website/environment"}}' == 'test':
     from .staging import *
 else:
     from .production import *
-    from .production.google import *
-    from .production.hellobar import *
-    from .production.intercom import *
-    from .production.knowtify import *
-    from .production.mandrill import *
-    from .production.segment import *
-    from .production.twilio import *
-    from .production.uploadcare import *
 
 DEBUG = TEMPLATE_DEBUG = {{getv "/sitterfied/website/debug"}}
 
